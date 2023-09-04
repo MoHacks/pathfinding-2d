@@ -1,0 +1,38 @@
+.grid{
+    margin: 100px 0 0;
+}
+
+/* .start-row-dropdown {
+  display: inline-block;
+  margin-right: 20px; 
+}
+
+.start-row-dropdown label, select {
+  display: inline;
+} */
+
+label{
+    color: white;
+}
+
+button{
+    display: inline;
+}
+
+.start-row-dropdown {
+  display: inline-block;
+  
+  /* Display the label as a block element */
+  /* margin-bottom: 5px; Add bottom margin to separate label and select */
+}
+
+h3{
+    color: white;
+}
+
+label{
+    display: flex;
+    justify-content: center;
+}
+
+
