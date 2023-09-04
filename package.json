@@ -1,5 +1,6 @@
 {
   "name": "pathfinding-2d",
+  "homepage": "https://MoHacks.github.io/pathfinding-2d",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
