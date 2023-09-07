@@ -26,13 +26,18 @@ button{
   /* margin-bottom: 5px; Add bottom margin to separate label and select */
 }
 
-h3{
-    color: white;
-}
-
 label{
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
+h3{
+  color: white;
+}
+
+.headers{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
 
