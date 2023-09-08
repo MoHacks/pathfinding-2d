@@ -6,7 +6,7 @@ import {
   END_NODE_COL,
 } from "./PathFindingAlgorithm";
 
-const StartRowDropdown = ({
+const Dropdown = ({
   onSelectStartCol,
   onSelectStartRow,
   onSelectEndCol,
@@ -348,6 +348,7 @@ const StartRowDropdown = ({
             {console.log("selectedGridColValueeeee: ", selectedGridColValue)}
             {console.log("selectedEndColValueeee: ", selectedEndColValue)}
             {console.log("END_NODE_COL: ", END_NODE_COL)}
+            {/* {alert(`onSelectEmdCol: ${onSelectEndCol}`)} */}
             {Array.from({ length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL }, (_, index) => index + 1).map(
               (col) => (
                 <option key={col - 1} value={col - 1}>
@@ -451,4 +452,4 @@ const StartRowDropdown = ({
   );
 };
 
-export default StartRowDropdown;
+export default Dropdown;
