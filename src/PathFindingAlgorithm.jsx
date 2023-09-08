@@ -99,15 +99,7 @@ export default function PathFindingAlgorithm() {
       const grid = getInitialGrid();
       setGrid(grid);
     }
-
-    console.log("inUseEffect isAnimating: ", isAnimating)
-    //TODO: Monitor the isAnimating variable
-    // if (isAnimating) {
-    //   alert("Dijkstra Animation Completed! Cannot Reach the End Destination");
-    //   setIsAnimating(false);
-    // }
-
-  }, [screenWidth, isAnimating]);
+  }, [screenWidth]);
 
   //updates start col value and updates the grid accordingly
   const handleSelectStartColValue = (value) => {
@@ -245,9 +237,7 @@ export default function PathFindingAlgorithm() {
       );
       return;
     }
-    //TODO: Decide whether you need setIsAnimating(false)
     
-    console.log("This is where we should have already set isAnimating to true: ", isAnimating)
     resetVisitedNodesToFalse();
     let startNode = grid[START_NODE_ROW][START_NODE_COL];
     let endNode = grid[END_NODE_ROW][END_NODE_COL];
@@ -262,20 +252,22 @@ export default function PathFindingAlgorithm() {
     console.log("nodes in shortest path order: ", nodesInShortestPathOrder);
     //this actually writes the dijkstra computation onto the screen, i.e. updates the UI
     
+    //TODO: Decide whether you need setIsAnimating(true)
+    setIsAnimating(false);
+
     // isAnimating = false 
     
     await animateDijkstra(visitedNodesInOrder);
-    // setIsAnimating(true);
+    setIsAnimating(true);
     // isAnimating = true
     console.log("VisitedNodesInOrder: ", visitedNodesInOrder);
     console.log(
       "Last visitedNodesInOrder: ",
       visitedNodesInOrder[visitedNodesInOrder.length - 1]
     );
-    console.log("Is It AnImAtiNg?????: ", isAnimating)
-    if ((!visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish) && isAnimating) {
+    
+    if (!visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish && isAnimating) {
       alert("Cannot Reach the End Destination");
-      // setIsAnimating(false);
     }
 
     //This will only be true if the animateDijkstra function has raeched the finish node
@@ -386,8 +378,6 @@ export default function PathFindingAlgorithm() {
     if (dijkstraCompleted) {
       console.log("Finished animating Dijkstra!");
     }
-
-    setIsAnimating(true)
   };
 
   const animateShortestPath = async (nodesInShortestPathOrder) => {
@@ -550,8 +540,6 @@ export default function PathFindingAlgorithm() {
           "In render function, shortestPathNodes: ",
           shortestPathNodes
         )}
-        {console.log("In render function, isAnimating?: ", isAnimating)}
-        
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => (
