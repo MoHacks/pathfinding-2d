@@ -1,24 +1,24 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Node from "./Node";
 import "./PathFindingAlgorithm.css";
 import { dijkstra, getNodesInShortestPathOrder } from "./dijkstra";
 import StartRowDropdown from "./Dropdown";
 import useScreenWidth from "./ScreenWidthHook";
 
-let START_NODE_COL = 5;
-let START_NODE_ROW = 7;
-let END_NODE_COL = 7;
-let END_NODE_ROW = 3;
+let selectedStartColValue = 5;
+let selectedStartRowValue = 7;
+let selectedEndColValue = 7;
+let selectedEndRowValue = 3;
 let MAX_TOTAL_COL = 20;
 let MAX_TOTAL_ROW = 50;
 let selectedGridColValue = MAX_TOTAL_COL;
 let selectedGridRowValue = MAX_TOTAL_ROW;
 
 export {
-  START_NODE_COL,
-  START_NODE_ROW,
-  END_NODE_COL,
-  END_NODE_ROW,
+  selectedStartColValue,
+  selectedStartRowValue,
+  selectedEndColValue,
+  selectedEndRowValue,
   MAX_TOTAL_COL,
   MAX_TOTAL_ROW,
 };
@@ -39,34 +39,34 @@ export default function PathFindingAlgorithm() {
   const [shortestPathNodes, setShortestPathNodes] = useState([]);
   const [isAnimating, setIsAnimating] = useState(null); // State to track animation status
 
-  // const [selectedStartColValue, setSelectedStartColValue] = useState(START_NODE_COL);
-  // const [selectedStartRowValue, setSelectedStartRowValue] = useState(START_NODE_ROW);
-  // cont screenWidtdEndColValue] = useState(END_NODE_COL);
-  // const [selectedEndRowValue, setSelectedEndRowValue] = useState(END_NODE_ROW);
+  // const [selectedStartColValue, setSelectedStartColValue] = useState(selectedStartColValue);
+  // const [selectedStartRowValue, setSelectedStartRowValue] = useState(selectedStartRowValue);
+  // cont screenWidtdEndColValue] = useState(selectedEndColValue);
+  // const [selectedEndRowValue, setSelectedEndRowValue] = useState(selectedEndRowValue);
 
   // const [selectedGridColValue, setSelectedGridColValue] = useState(MAX_TOTAL_COL);
   // const [selectedGridRowValue, setSelectedGridRowValue] = useState(totalRows);
 
   //selected
-  let selectedStartColValue = START_NODE_COL;
-  let selectedStartRowValue = START_NODE_ROW;
-  let selectedEndColValue = END_NODE_COL;
-  let selectedEndRowValue = END_NODE_ROW;
+  // let selectedStartColValue = selectedStartColValue;
+  // let selectedStartRowValue = selectedStartRowValue;
+  // let selectedEndColValue = selectedEndColValue;
+  // let selectedEndRowValue = selectedEndRowValue;
 
   let dijkstraCompleted = false;
   let dijkstraNotComplete = false;
   let screenWidth = useScreenWidth();
-  
+
   const abortControllerRef = useRef(null); // Create a ref for the AbortController
   const previousCountRef = useRef(null);
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     /* TODO: 1) The problem here is that whenever I click "Visualize Dijkstra" AFTER the alert "Cannt Reach the End Destination", 
              it makes the walls reset
              2) Futhermore, if the algorithm reaches the end node, it doesn't reveal the colorful shortest path visualization 
      */
-    
+
     if (screenWidth >= 1300) {
       console.log(
         "1300 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
@@ -76,7 +76,6 @@ export default function PathFindingAlgorithm() {
       selectedGridColValue = MAX_TOTAL_COL;
       const grid = getInitialGrid();
       setGrid(grid);
-      
     } else if (screenWidth >= 1100) {
       console.log(
         "1100 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
@@ -114,14 +113,13 @@ export default function PathFindingAlgorithm() {
       const grid = getInitialGrid();
       setGrid(grid);
     }
-    
+
     // if (!visitedNodesInOrderRef.current.length) return; //skip if array is empty
 
     // const lastVisitedNode = visitedNodesInOrderRef.current[
     //   visitedNodesInOrderRef.current.length - 1
     // ];
 
-   
     // if (!lastVisitedNode.isFinish && !isAnimatingRef.current) {
     //   setIsAnimating(false); //allows for drawing walls after the animation has completed
     //   //TODO: IT resets the walls on the grid for some reason....
@@ -137,44 +135,47 @@ export default function PathFindingAlgorithm() {
 
     // Here, you can cancel any ongoing animation or cleanup resources if needed
     // I wish to cancel the previous Dijkstra animation,
-    console.log(
-      "Within UseEffect(), Current Animation Counter Value: "
-    );
-    console.log("Within UseEffect, screenWidth: ", screenWidth)
-    
-  }, [screenWidth]); 
+    console.log("Within UseEffect(), Current Animation Counter Value: ");
+    console.log("Within UseEffect, screenWidth: ", screenWidth);
+  }, [screenWidth]);
 
   //updates start col value and updates the grid accordingly
   const handleSelectStartColValue = (value) => {
-    // if(value === END_NODE_COL && START_NODE_ROW === END_NODE_ROW){
+    // if(value === selectedEndColValue && selectedStartRowValue === selectedEndRowValue){
     //   alert("1) STUPID, THEY ARE SAME COL")
     //   return
     // }
-    START_NODE_COL = value;
+    selectedStartColValue = value;
     selectedStartColValue = value;
     const grid = getInitialGrid();
     setGrid(grid);
-    console.log("UseEffect(), in handleSelectedStartColValue with col value: ", value);
+    console.log(
+      "UseEffect(), in handleSelectedStartColValue with col value: ",
+      value
+    );
   };
 
   const handleSelectStartRowValue = (value) => {
-    // if(value === END_NODE_ROW && START_NODE_COL === END_NODE_COL){
+    // if(value === selectedEndRowValue && selectedStartColValue === selectedEndColValue){
     //   alert("2) STUPID, THEY ARE SAME ROW")
     //   return
     // }
-    START_NODE_ROW = value;
+    selectedStartRowValue = value;
     selectedStartRowValue = value;
     const grid = getInitialGrid();
     setGrid(grid);
-    console.log("UseEffect(), in handleSelectStartRowValue with row value: ", value);
+    console.log(
+      "UseEffect(), in handleSelectStartRowValue with row value: ",
+      value
+    );
   };
 
   const handleSelectEndColValue = (value) => {
-    // if(value === START_NODE_COL && START_NODE_ROW === END_NODE_ROW){
+    // if(value === selectedStartColValue && selectedStartRowValue === selectedEndRowValue){
     //   alert("3) STUPID, THEY ARE SAME COL")
     //   return
     // }
-    END_NODE_COL = value;
+    selectedEndColValue = value;
     selectedEndColValue = value;
     const grid = getInitialGrid();
     setGrid(grid);
@@ -182,11 +183,11 @@ export default function PathFindingAlgorithm() {
   };
 
   const handleSelectEndRowValue = (value) => {
-    // if(value === START_NODE_ROW && START_NODE_COL === END_NODE_COL){
+    // if(value === selectedStartRowValue && selectedStartColValue === selectedEndColValue){
     //   alert("4) STUPID, THEY ARE SAME ROW")
     //   return
     // }
-    END_NODE_ROW = value;
+    selectedEndRowValue = value;
     selectedEndRowValue = value;
     const grid = getInitialGrid();
     setGrid(grid);
@@ -273,7 +274,6 @@ export default function PathFindingAlgorithm() {
   //This needs to be an async function because we must await the result from animateDijkstra function before calling the
   //animateShortestpath() function
 
-
   const visualizeDijkstra = async () => {
     //if the previous animation is running, just return it early (i.e. cancel the previous call)
     // if(isAnimatingRef.current){
@@ -291,7 +291,7 @@ export default function PathFindingAlgorithm() {
           abortControllerRef
         );
         abortControllerRef.current.abort();
-        alert("Boo ya")
+        alert("Boo ya");
         console.log(
           "counter now the abort signal value is: ",
           abortControllerRef.current.signal
@@ -301,7 +301,7 @@ export default function PathFindingAlgorithm() {
       // return;
     }
 
-    //TODO: REFACTOR THE IF CONDITIONS USING: START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW instead of "selected"
+    //TODO: REFACTOR THE IF CONDITIONS USING: selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue instead of "selected"
     if (selectedStartColValue >= selectedGridColValue) {
       alert(
         "Start Node Column Value is greater than the total number of Columns in the Grid!"
@@ -331,8 +331,8 @@ export default function PathFindingAlgorithm() {
 
     // isAnimatingRef.current = true; // Animation starts
 
-    let startNode = grid[START_NODE_ROW][START_NODE_COL];
-    let endNode = grid[END_NODE_ROW][END_NODE_COL];
+    let startNode = grid[selectedStartRowValue][selectedStartColValue];
+    let endNode = grid[selectedEndRowValue][selectedEndColValue];
     //NOTE: visitedNodesInOrder returns ALL the nodes that were traversed UNTIL REACHING THE END NODE!
     //this process precomputes the dijkstra algorithm and stores the Nodes in an array
     //NOTE: it also changes the value of the nodes visited to Node.isVisited=true
@@ -341,8 +341,6 @@ export default function PathFindingAlgorithm() {
 
     // Set isNewAnimationStarted to true to indicate a new animation has started
     // setIsNewAnimationStarted(true);
-
-    
 
     /*
     //first time instantiating abortControllerRef
@@ -375,8 +373,8 @@ export default function PathFindingAlgorithm() {
 
     setIsAnimating(true);
 
-    //NOTE: This updates the CountRef to the most currrent value. 
-    previousCountRef.current = count; 
+    //NOTE: This updates the CountRef to the most currrent value.
+    previousCountRef.current = count;
 
     try {
       console.log(
@@ -390,11 +388,9 @@ export default function PathFindingAlgorithm() {
       // const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
 
       // Perform the animation
-      const animateAlgorithm = await animateDijkstra(
-        visitedNodesInOrder
-      );
-      console.log("Next") 
-      
+      const animateAlgorithm = await animateDijkstra(visitedNodesInOrder);
+      console.log("Next");
+
       console.log(
         "Counter returned animateAlgorithm value: ",
         animateAlgorithm
@@ -437,20 +433,20 @@ export default function PathFindingAlgorithm() {
         visitedNodesInOrder[visitedNodesInOrder.length - 1]
       );
 
-      // if (!visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish && !isAnimating) {
-      //   alert("Within visualizeDijkstra(), Cannot Reach the End Destination");
-      // }
-
-      //This will only be true if the animateDijkstra function has raeched the finish node
+      
       if (dijkstraCompleted) {
         console.log(
           "we will now call the animateShortestPath function from visualizeDijkstra()"
         );
         animateShortestPath(nodesInShortestPathOrder);
         // alert("Found End Node!");
-      } else if (dijkstraNotComplete) {
+      } 
+      /*
+      else if (dijkstraNotComplete) {
         alert("dijkstaNotComplete, Cannot Reach the End Destination");
       }
+      */
+
     } catch (error) {
       // Handle any errors, e.g., if the animation is cancelled
       console.error("Animation error:", error.message);
@@ -536,7 +532,7 @@ export default function PathFindingAlgorithm() {
       "Counter abortControllerRef.current: ",
       abortControllerRef.current
     );
-    
+
     if (
       abortControllerRef.current &&
       abortControllerRef.current.signal.aborted
@@ -546,11 +542,8 @@ export default function PathFindingAlgorithm() {
       //TODO: However, the for loop directly below that was initiated FROM THE PREVIOUS "visualizeDijksta()" continues to go on
       // return;
     }
-    
-    
 
     for (let index = 0; index < visitedNodesInOrder.length; index++) {
-      
       console.log("current index: ", index);
 
       //NOTE: updates the state of the visitedNodes array in the React component.
@@ -575,14 +568,16 @@ export default function PathFindingAlgorithm() {
       // NOTE: Due to the await, it will just IMMEDIATELY jump to the render() function
       await delay(10);
 
-      if (visitedNodesInOrder[index] === grid[END_NODE_ROW][END_NODE_COL]) {
+      if (
+        visitedNodesInOrder[index] ===
+        grid[selectedEndRowValue][selectedEndColValue]
+      ) {
         console.log(
           "we have reached the end node: ",
           visitedNodesInOrder[index]
         );
         dijkstraCompleted = true;
       }
-
 
       //NOTE: ORDER OF OPERATIONS: log("current index"), setVisitedNodes(), log("right before render"), await delay(10000),
       //after 10000ms: render(), log("after delay")
@@ -597,39 +592,50 @@ export default function PathFindingAlgorithm() {
     //finished Aniamting Dijkstra
     setIsAnimating(false);
 
-
     //Case 1: We have NOT clicked on the visualize button early before starting new animation, and surrounded by wall
     //Case 2: We HAVE clicked on the visusalize button early before starting new animation, and surrounded by wall (DONE)
-    console.log("isAnimating: ", isAnimating)
+    console.log("isAnimating: ", isAnimating);
     // alert(`abortControllerRef.current: ${abortControllerRef.current}`)
     // alert(`abortControllerRef.current.signal.aborted: ${abortControllerRef.current.signal.aborted}, isAnimating: ${isAnimating}`)
-    
+
     //abortController.current ==> DID abort
     //!abortController.current ==> DID NOT abort
-    
-    
 
-    console.log("zz: abortControllerRef.current, isAnimating, previousCountRef.current, count", 
-                     abortControllerRef.current, isAnimating, previousCountRef.current, count)
-    
-    //NOTE: previousCountRef.current will always store the most updated iteration vaue, 
+    console.log(
+      "zz: abortControllerRef.current, isAnimating, previousCountRef.current, count",
+      abortControllerRef.current,
+      isAnimating,
+      previousCountRef.current,
+      count
+    );
+
+    //NOTE: previousCountRef.current will always store the most updated iteration vaue,
     //NOTE: meanwhile the count will need to eventually catchup to previousCountRef
-    //NOTE: THIS IS HOW YOU COMPARE CURRENT COUNT STATES WITH PREVIOUS COUNT STATES! 
-    if(previousCountRef.current == count)  {               
-      
-      //we let the animation complete while cutting previous animation(s) short
-      if(isAnimating === true && abortControllerRef.current === null && !visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish){
-        dijkstraNotComplete = true;
-        alert("1) Hit the Wall! Cannot Reach the End Destination!")
-      }
+    //NOTE: THIS IS HOW YOU COMPARE CURRENT COUNT STATES WITH PREVIOUS COUNT STATES!
+    if (previousCountRef.current == count) {
 
+      //we let the animation complete while cutting previous animation(s) short
+      if (
+        abortControllerRef.current === null &&
+        !visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish
+      ) {
+        alert("1) Hit the Wall! Cannot Reach the End Destination!");
+      } 
+
+      //TODO: I DONT THINK I NEED THIS.....
       //we let the animation finish completely without cutting previous animation(s) short
-      else if ((isAnimating === false || isAnimating === null) && abortControllerRef.current && !abortControllerRef.current.signal.aborted && !visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish) {
-        dijkstraNotComplete = true;
-        alert("2) Hit the Wall! Cannot Reach the End Destination!")
-        // return "wrong"
+      else if (
+        (isAnimating === false || isAnimating === null) &&
+        abortControllerRef.current &&
+        !abortControllerRef.current.signal.aborted &&
+        !visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish
+      ) {
+        alert("2) Hit the Wall! Cannot Reach the End Destination!");
       }
-  }    
+      
+      dijkstraNotComplete = true;
+
+    }
 
     /*
     if(isAnimating){
@@ -669,10 +675,9 @@ export default function PathFindingAlgorithm() {
       ]);
       await delay(10);
     }
-    
+
     //TODO: Decide whether you need setIsAnimating
     setIsAnimating(false);
-    
   };
 
   return (
@@ -703,10 +708,10 @@ export default function PathFindingAlgorithm() {
             <StartRowDropdown
               dropDownType="grid-col-dropdown"
               initialGridColSize={selectedGridColValue}
-              // onSelectStartCol={START_NODE_COL}
-              // onSelectStartRow={START_NODE_ROW}
-              // onSelectEndCol={END_NODE_COL}
-              onSelectEndRow={END_NODE_ROW}
+              // onSelectStartCol={selectedStartColValue}
+              // onSelectStartRow={selectedStartRowValue}
+              // onSelectEndCol={selectedEndColValue}
+              onSelectEndRow={selectedEndRowValue}
               // initialGridRowSize={selectedGridRowValue}
               updateGridColSize={handleSelectGridColValue} //this will hold and set the value of the Grid Columns
             />
@@ -736,10 +741,10 @@ export default function PathFindingAlgorithm() {
             {" "}
             Start Cols:
             <StartRowDropdown
-              onSelectStartCol={START_NODE_COL}
-              // onSelectStartRow={START_NODE_ROW}
-              // onSelectEndCol={END_NODE_COL}
-              // onSelectEndRow={END_NODE_ROW}
+              onSelectStartCol={selectedStartColValue}
+              // onSelectStartRow={selectedStartRowValue}
+              // onSelectEndCol={selectedEndColValue}
+              // onSelectEndRow={selectedEndRowValue}
               // initialGridColSize={selectedGridColValue}
               // initialGridRowSize={selectedGridRowValue}
               dropDownType="start-col-dropdown"
@@ -751,10 +756,10 @@ export default function PathFindingAlgorithm() {
             {" "}
             Start Rows:
             <StartRowDropdown
-              // onSelectStartCol={START_NODE_COL}
-              onSelectStartRow={START_NODE_ROW}
-              // onSelectEndCol={END_NODE_COL}
-              // onSelectEndRow={END_NODE_ROW}
+              // onSelectStartCol={selectedStartColValue}
+              onSelectStartRow={selectedStartRowValue}
+              // onSelectEndCol={selectedEndColValue}
+              // onSelectEndRow={selectedEndRowValue}
               // initialGridColSize={selectedGridColValue}
               // initialGridRowSize={selectedGridRowValue}
               dropDownType="start-row-dropdown"
@@ -772,25 +777,25 @@ export default function PathFindingAlgorithm() {
             {" "}
             End Cols:
             <StartRowDropdown
-              // onSelectStartCol={START_NODE_COL}
-              // onSelectStartRow={START_NODE_ROW}
-              onSelectEndCol={END_NODE_COL}
-              // onSelectEndRow={END_NODE_ROW}
+              // onSelectStartCol={selectedStartColValue}
+              // onSelectStartRow={selectedStartRowValue}
+              onSelectEndCol={selectedEndColValue}
+              // onSelectEndRow={selectedEndRowValue}
               // initialGridColSize={selectedGridColValue}
               // initialGridRowSize={selectedGridRowValue}
               dropDownType="end-col-dropdown"
               updateEndColPositionInGrid={handleSelectEndColValue} //this will hold and set the value of the endCol
             />
           </label>
-          {/* {console.log("AFTER END_NODE_COL was changed: ", END_NODE_COL)} */}
+          {/* {console.log("AFTER selectedEndColValue was changed: ", selectedEndColValue)} */}
           <label>
             {" "}
             End Rows:
             <StartRowDropdown
-              // onSelectStartCol={START_NODE_COL}
-              // onSelectStartRow={START_NODE_ROW}
-              // onSelectEndCol={END_NODE_COL}
-              onSelectEndRow={END_NODE_ROW}
+              // onSelectStartCol={selectedStartColValue}
+              // onSelectStartRow={selectedStartRowValue}
+              // onSelectEndCol={selectedEndColValue}
+              onSelectEndRow={selectedEndRowValue}
               // initialGridColSize={selectedGridColValue}
               // initialGridRowSize={selectedGridRowValue}
               dropDownType="end-row-dropdown"
@@ -835,8 +840,8 @@ const createNode = (col, row) => {
   return {
     col,
     row,
-    isStart: row === START_NODE_ROW && col === START_NODE_COL,
-    isFinish: row === END_NODE_ROW && col === END_NODE_COL,
+    isStart: row === selectedStartRowValue && col === selectedStartColValue,
+    isFinish: row === selectedEndRowValue && col === selectedEndColValue,
     distance: Infinity,
     isVisited: false,
     isWall: false,
@@ -863,8 +868,8 @@ const getInitialGrid = () => {
 
 const getNewGridWithWallToggled = (grid, row, col) => {
   if (
-    (row === START_NODE_ROW && col === START_NODE_COL) ||
-    (row === END_NODE_ROW && col === END_NODE_COL)
+    (row === selectedStartRowValue && col === selectedStartColValue) ||
+    (row === selectedEndRowValue && col === selectedEndColValue)
   ) {
     console.log(
       "in the get new Grid start row, col OR end row, col: ",

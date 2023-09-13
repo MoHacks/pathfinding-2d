@@ -3,10 +3,6 @@ import { useEffect } from "react";
 import {
   MAX_TOTAL_ROW,
   MAX_TOTAL_COL,
-  START_NODE_COL,
-  START_NODE_ROW,
-  END_NODE_COL,
-  END_NODE_ROW,
 } from "./PathFindingAlgorithm";
 
 const Dropdown = ({
@@ -24,13 +20,6 @@ const Dropdown = ({
   updateGridColSize,
   updateGridRowSize,
 }) => {
-  // const [selectedStartColValue, setSelectedStartColValue] = useState(START_NODE_COL);
-  // const [selectedStartRowValue, setSelectedStartRowValue] = useState(START_NODE_ROW);
-  // const [selectedEndColValue, setSelectedEndColValue] = useState(END_NODE_COL);
-  // const [selectedEndRowValue, setSelectedEndRowValue] = useState(END_NODE_ROW);
-
-  // const [selectedGridColValue, setSelectedGridColValue] = useState(MAX_TOTAL_COL);
-  // const [selectedGridRowValue, setSelectedGridRowValue] = useState(MAX_TOTAL_ROW);
 
   const [selectedStartColValue, setSelectedStartColValue] =
     useState(onSelectStartCol);
@@ -186,7 +175,10 @@ const Dropdown = ({
       );
     } else if (dropDownType === "grid-col-dropdown") {
       updateGridColSize(selectedGridColValue);
-      console.log("In useEffect(), finished updateGridCol: ", selectedGridColValue);
+      console.log(
+        "In useEffect(), finished updateGridCol: ",
+        selectedGridColValue
+      );
       console.log(
         "selectedEndColValue after updateGridCol was finished: ",
         selectedEndColValue
@@ -197,7 +189,10 @@ const Dropdown = ({
       );
     } else if (dropDownType === "grid-row-dropdown") {
       updateGridRowSize(selectedGridRowValue);
-      console.log("In useEffect(), finished updateGridRow: ", selectedGridRowValue);
+      console.log(
+        "In useEffect(), finished updateGridRow: ",
+        selectedGridRowValue
+      );
     }
 
     console.log("in useEffect(), finished renderdropDownDiv");
@@ -206,8 +201,8 @@ const Dropdown = ({
     selectedStartRowValue,
     selectedEndColValue,
     selectedEndRowValue,
-    selectedGridColValue, //TODO: When you COMMENT THIS OUT, IT ACTUALLY FIXES THE END-COL RESORTING BACK TO 1 PROBLEM, 
-                        //BUT IT DOESNT CHANGE THE GRID COLS value at all...
+    selectedGridColValue, //TODO: When you COMMENT THIS OUT, IT ACTUALLY FIXES THE END-COL RESORTING BACK TO 1 PROBLEM,
+    //BUT IT DOESNT CHANGE THE GRID COLS value at all...
     selectedGridRowValue,
     // onSelectStartCol, //NOTE: Not Sure if this is necessary...
     // onSelectStartRow, //NOTE: Not Sure if this is necessary...
@@ -219,11 +214,14 @@ const Dropdown = ({
 
   const handleStartColChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value === END_NODE_COL && START_NODE_ROW === END_NODE_ROW) {
+    if (
+      value === selectedEndColValue &&
+      selectedStartRowValue === selectedEndRowValue
+    ) {
       alert(
         "A) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Column."
       );
-      return
+      return;
     } else {
       setSelectedStartColValue(value);
     }
@@ -231,12 +229,15 @@ const Dropdown = ({
 
   const handleStartRowChange = (event) => {
     const value = parseInt(event.target.value);
-    // alert(`Value, onSelectEndRow, onSelectStartCol, onSelectEndCol: ${value}, ${END_NODE_ROW}, ${START_NODE_COL}, ${END_NODE_COL}`)
-    if (value === END_NODE_ROW && START_NODE_COL === END_NODE_COL) {
+    // alert(`Value, onSelectEndRow, onSelectStartCol, onSelectEndCol: ${value}, ${selectedEndRowValue}, ${selectedStartColValue}, ${selectedEndColValue}`)
+    if (
+      value === selectedEndRowValue &&
+      selectedStartColValue === selectedEndColValue
+    ) {
       alert(
         "B) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Row."
       );
-      return
+      return;
     } else {
       setSelectedStartRowValue(value);
     }
@@ -244,11 +245,14 @@ const Dropdown = ({
 
   const handleEndColChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value === START_NODE_COL && START_NODE_ROW === END_NODE_ROW) {
+    if (
+      value === selectedStartColValue &&
+      selectedStartRowValue === selectedEndRowValue
+    ) {
       alert(
         "C) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Column."
       );
-      return
+      return;
     } else {
       setSelectedEndColValue(value);
     }
@@ -263,11 +267,14 @@ const Dropdown = ({
 
   const handleEndRowChange = (event) => {
     let value = parseInt(event.target.value);
-    if (value === START_NODE_ROW && START_NODE_COL === END_NODE_COL) {
+    if (
+      value === selectedStartRowValue &&
+      selectedStartColValue === selectedEndColValue
+    ) {
       alert(
         "D) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Row."
       );
-      return
+      return;
     } else {
       setSelectedEndRowValue(value);
     }
@@ -283,7 +290,10 @@ const Dropdown = ({
   const handleGridColChange = (event) => {
     const value = parseInt(event.target.value);
     setSelectedGridColValue(value);
-    console.log("valueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ", value)
+    console.log(
+      "valueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ",
+      value
+    );
   };
 
   const handleGridRowChange = (event) => {
@@ -292,7 +302,6 @@ const Dropdown = ({
   };
 
   const renderDropdownDiv = () => {
-    
     if (dropDownType === "start-col-dropdown") {
       console.log("We are in the START-COL-DROPDOWN");
       return (
@@ -307,13 +316,16 @@ const Dropdown = ({
             {console.log("initialGridColSizeeeeee: ", initialGridColSize)}
             {console.log("selectedGridColValueeeee: ", selectedGridColValue)}
             {console.log("selectedStartColValueeee: ", selectedStartColValue)}
-            {Array.from({ length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL }, (_, index) => index + 1).map(
-              (col) => (
-                <option key={col - 1} value={col - 1}>
-                  {col}
-                </option>
-              )
-            )}
+            {Array.from(
+              {
+                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL,
+              },
+              (_, index) => index + 1
+            ).map((col) => (
+              <option key={col - 1} value={col - 1}>
+                {col}
+              </option>
+            ))}
           </select>
         </div>
       );
@@ -330,19 +342,22 @@ const Dropdown = ({
             onChange={handleStartRowChange}
             dropDownType={dropDownType}
           >
-            {Array.from({ length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW }, (_, index) => index + 1).map(
-              (row) => (
-                <option key={row - 1} value={row - 1}>
-                  {row}
-                </option>
-              )
-            )}
+            {Array.from(
+              {
+                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW,
+              },
+              (_, index) => index + 1
+            ).map((row) => (
+              <option key={row - 1} value={row - 1}>
+                {row}
+              </option>
+            ))}
           </select>
         </div>
       );
     } else if (dropDownType === "end-col-dropdown") {
       console.log("We are in the END-COL-DROPDOWN");
-      console.log("selectedEndColValue (BEFORE): ", selectedEndColValue)
+      console.log("selectedEndColValue (BEFORE): ", selectedEndColValue);
       return (
         <div className="end-col-dropdown">
           {console.log("IN handleEndColChange: ", selectedEndColValue + 1)}
@@ -355,15 +370,18 @@ const Dropdown = ({
             {console.log("initialGridColSizeeeeee: ", initialGridColSize)}
             {console.log("selectedGridColValueeeee: ", selectedGridColValue)}
             {console.log("selectedEndColValueeee: ", selectedEndColValue)}
-            {console.log("END_NODE_COL: ", END_NODE_COL)}
+            {console.log("selectedEndColValue: ", selectedEndColValue)}
             {/* {alert(`onSelectEmdCol: ${onSelectEndCol}`)} */}
-            {Array.from({ length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL }, (_, index) => index + 1).map(
-              (col) => (
-                <option key={col - 1} value={col - 1}>
-                  {col}
-                </option>
-              )
-            )}
+            {Array.from(
+              {
+                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL,
+              },
+              (_, index) => index + 1
+            ).map((col) => (
+              <option key={col - 1} value={col - 1}>
+                {col}
+              </option>
+            ))}
           </select>
         </div>
       );
@@ -381,18 +399,21 @@ const Dropdown = ({
             onChange={handleEndRowChange}
             dropDownType={dropDownType}
           >
-            {Array.from({ length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW }, (_, index) => index + 1).map(
-              (row) => (
-                <option key={row - 1} value={row - 1}>
-                  {row}
-                </option>
-              )
-            )}
+            {Array.from(
+              {
+                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW,
+              },
+              (_, index) => index + 1
+            ).map((row) => (
+              <option key={row - 1} value={row - 1}>
+                {row}
+              </option>
+            ))}
           </select>
         </div>
       );
     } else if (dropDownType === "grid-col-dropdown") {
-      console.log("initialGridColSize: ", initialGridColSize)
+      console.log("initialGridColSize: ", initialGridColSize);
       console.log("We are in the GRID-COL-DROPDOWN");
       return (
         <div className="grid-col-dropdown">
@@ -402,7 +423,6 @@ const Dropdown = ({
             value={initialGridColSize}
             onChange={handleGridColChange}
             dropDownType={dropDownType}
-            
           >
             {console.log("selectedGridColValue: ", selectedGridColValue)}
             {Array.from({ length: MAX_TOTAL_COL }, (_, index) => index + 1).map(
