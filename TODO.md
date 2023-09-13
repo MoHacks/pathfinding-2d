@@ -2,7 +2,7 @@ Current fixes to make:
 
 1. Make the Start position of Start/End Nodes not touch each other (DONE)
 2. The screenWidth in UseEffect is glitchy, fix ASAP!!!!! (DONE)
-3. Perhaps remove selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue and replace it with the respective selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue
+3. Perhaps remove selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue and replace it with the respective selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue --> Still need to make sure the lengths of the dropdown Values do not exceed the lengths of the grid row/columns
 4.
 5.
 

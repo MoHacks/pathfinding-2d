@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import {
-  MAX_TOTAL_ROW,
+  selectedGridColValue as selectedGridColVal,
+  selectedGridRowValue as selectedGridRowVal,
   MAX_TOTAL_COL,
+  MAX_TOTAL_ROW
 } from "./PathFindingAlgorithm";
-
 const Dropdown = ({
   onSelectStartCol,
   onSelectStartRow,
@@ -20,7 +21,6 @@ const Dropdown = ({
   updateGridColSize,
   updateGridRowSize,
 }) => {
-
   const [selectedStartColValue, setSelectedStartColValue] =
     useState(onSelectStartCol);
   const [selectedStartRowValue, setSelectedStartRowValue] =
@@ -31,9 +31,9 @@ const Dropdown = ({
     useState(onSelectEndRow);
 
   const [selectedGridColValue, setSelectedGridColValue] =
-    useState(initialGridColSize);
+    useState(selectedGridColVal);
   const [selectedGridRowValue, setSelectedGridRowValue] =
-    useState(MAX_TOTAL_ROW);
+    useState(selectedGridRowVal);
   //initializes the dropdown once (MUST START WITH CAPITAL LETTER SINCE ITS A CUSTOM REACT HOOK COMPONENT FUNCTION)
 
   // Use the useEffect hook to trigger a re-render ONLY when the selectedValue CHANGES
@@ -201,13 +201,8 @@ const Dropdown = ({
     selectedStartRowValue,
     selectedEndColValue,
     selectedEndRowValue,
-    selectedGridColValue, //TODO: When you COMMENT THIS OUT, IT ACTUALLY FIXES THE END-COL RESORTING BACK TO 1 PROBLEM,
-    //BUT IT DOESNT CHANGE THE GRID COLS value at all...
+    selectedGridColValue, 
     selectedGridRowValue,
-    // onSelectStartCol, //NOTE: Not Sure if this is necessary...
-    // onSelectStartRow, //NOTE: Not Sure if this is necessary...
-    // onSelectEndCol, //NOTE: Not Sure if this is necessary...
-    // onSelectEndRow, //NOTE: Not Sure if this is necessary...
     // initialGridColSize, //NOTE: DO NOT ADD THIS, it resets the grid col to the INITIAL size
     // initialGridRowSize //NOTE: DO NOT ADD THIS, it resets the grid row to the INITIAL size
   ]);
@@ -318,7 +313,7 @@ const Dropdown = ({
             {console.log("selectedStartColValueeee: ", selectedStartColValue)}
             {Array.from(
               {
-                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL,
+                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL
               },
               (_, index) => index + 1
             ).map((col) => (
@@ -344,7 +339,7 @@ const Dropdown = ({
           >
             {Array.from(
               {
-                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW,
+                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW
               },
               (_, index) => index + 1
             ).map((row) => (
@@ -374,7 +369,7 @@ const Dropdown = ({
             {/* {alert(`onSelectEmdCol: ${onSelectEndCol}`)} */}
             {Array.from(
               {
-                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL,
+                length: initialGridColSize ? initialGridColSize : MAX_TOTAL_COL
               },
               (_, index) => index + 1
             ).map((col) => (
@@ -401,7 +396,7 @@ const Dropdown = ({
           >
             {Array.from(
               {
-                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW,
+                length: initialGridRowSize ? initialGridRowSize : MAX_TOTAL_ROW
               },
               (_, index) => index + 1
             ).map((row) => (
@@ -418,6 +413,7 @@ const Dropdown = ({
       return (
         <div className="grid-col-dropdown">
           {console.log("IN handleGridColChange: ", selectedGridColValue)}
+          {/* {alert(`initialGridColSize, selectedGridColValue, selectedGridColVal: ${initialGridColSize}, ${selectedGridColValue}, ${selectedGridColVal}`)} */}
           <select
             id="gridCols"
             value={initialGridColSize}
@@ -425,13 +421,14 @@ const Dropdown = ({
             dropDownType={dropDownType}
           >
             {console.log("selectedGridColValue: ", selectedGridColValue)}
-            {Array.from({ length: MAX_TOTAL_COL }, (_, index) => index + 1).map(
-              (col) => (
-                <option key={col - 1} value={col}>
-                  {col}
-                </option>
-              )
-            )}
+            {Array.from(
+              { length: MAX_TOTAL_COL },
+              (_, index) => index + 1
+            ).map((col) => (
+              <option key={col - 1} value={col}>
+                {col}
+              </option>
+            ))}
           </select>
         </div>
       );
@@ -440,6 +437,7 @@ const Dropdown = ({
       return (
         <div className="grid-row-dropdown">
           {console.log("IN handleGridRowChange: ", selectedGridRowValue)}
+          {/* {alert(`iniitalGridRowSize, selectedGridRowValue, selectedGridRowVal: ${initialGridRowSize}, ${selectedGridRowValue}, ${selectedGridRowVal}`)} */}
           {/* NOTE: I want the grid to be MINIMUM 9 columns */}
           <select
             id="gridRows"

@@ -9,8 +9,9 @@ let selectedStartColValue = 5;
 let selectedStartRowValue = 7;
 let selectedEndColValue = 7;
 let selectedEndRowValue = 3;
-let MAX_TOTAL_COL = 20;
-let MAX_TOTAL_ROW = 50;
+
+const MAX_TOTAL_COL = 50
+const MAX_TOTAL_ROW = 50
 let selectedGridColValue = MAX_TOTAL_COL;
 let selectedGridRowValue = MAX_TOTAL_ROW;
 
@@ -19,8 +20,10 @@ export {
   selectedStartRowValue,
   selectedEndColValue,
   selectedEndRowValue,
+  selectedGridColValue,
+  selectedGridRowValue,
   MAX_TOTAL_COL,
-  MAX_TOTAL_ROW,
+  MAX_TOTAL_ROW
 };
 
 // HACK: Use Functional COMPONENT instead of Class Component, and useState instead of setSet for synchronous rendering
@@ -44,7 +47,7 @@ export default function PathFindingAlgorithm() {
   // cont screenWidtdEndColValue] = useState(selectedEndColValue);
   // const [selectedEndRowValue, setSelectedEndRowValue] = useState(selectedEndRowValue);
 
-  // const [selectedGridColValue, setSelectedGridColValue] = useState(MAX_TOTAL_COL);
+  // const [selectedGridColValue, setSelectedGridColValue] = useState(selectedGridColValue);
   // const [selectedGridRowValue, setSelectedGridRowValue] = useState(totalRows);
 
   //selected
@@ -72,8 +75,8 @@ export default function PathFindingAlgorithm() {
         "1300 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      MAX_TOTAL_COL = 50;
-      selectedGridColValue = MAX_TOTAL_COL;
+      selectedGridColValue = 50;
+      selectedGridColValue = selectedGridColValue;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 1100) {
@@ -81,8 +84,8 @@ export default function PathFindingAlgorithm() {
         "1100 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      MAX_TOTAL_COL = 40;
-      selectedGridColValue = MAX_TOTAL_COL;
+      selectedGridColValue = 40;
+      selectedGridColValue = selectedGridColValue;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 900) {
@@ -90,8 +93,8 @@ export default function PathFindingAlgorithm() {
         "900 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      MAX_TOTAL_COL = 30;
-      selectedGridColValue = MAX_TOTAL_COL;
+      selectedGridColValue = 30;
+      selectedGridColValue = selectedGridColValue;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 700) {
@@ -99,8 +102,8 @@ export default function PathFindingAlgorithm() {
         "700 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      MAX_TOTAL_COL = 20;
-      selectedGridColValue = MAX_TOTAL_COL;
+      selectedGridColValue = 20;
+      selectedGridColValue = selectedGridColValue;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 500) {
@@ -108,8 +111,8 @@ export default function PathFindingAlgorithm() {
         "500 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      MAX_TOTAL_COL = 12;
-      selectedGridColValue = MAX_TOTAL_COL;
+      selectedGridColValue = 12;
+      selectedGridColValue = selectedGridColValue;
       const grid = getInitialGrid();
       setGrid(grid);
     }
@@ -433,20 +436,18 @@ export default function PathFindingAlgorithm() {
         visitedNodesInOrder[visitedNodesInOrder.length - 1]
       );
 
-      
       if (dijkstraCompleted) {
         console.log(
           "we will now call the animateShortestPath function from visualizeDijkstra()"
         );
         animateShortestPath(nodesInShortestPathOrder);
         // alert("Found End Node!");
-      } 
+      }
       /*
       else if (dijkstraNotComplete) {
         alert("dijkstaNotComplete, Cannot Reach the End Destination");
       }
       */
-
     } catch (error) {
       // Handle any errors, e.g., if the animation is cancelled
       console.error("Animation error:", error.message);
@@ -474,7 +475,7 @@ export default function PathFindingAlgorithm() {
       selectedGridColValue
     );
     let newGrid = [...grid];
-    //you can also do initialGrid = Array(selectedGridRowValue).fill(Array(MAX_TOTAL_COL).fill('')), to create
+    //you can also do initialGrid = Array(selectedGridRowValue).fill(Array(selectedGridColValue).fill('')), to create
     for (let row = 0; row < selectedGridRowValue; row++) {
       for (let col = 0; col < selectedGridColValue; col++) {
         //if the current node has been visited before, we will turn it into an unvisited node
@@ -613,14 +614,13 @@ export default function PathFindingAlgorithm() {
     //NOTE: meanwhile the count will need to eventually catchup to previousCountRef
     //NOTE: THIS IS HOW YOU COMPARE CURRENT COUNT STATES WITH PREVIOUS COUNT STATES!
     if (previousCountRef.current == count) {
-
       //we let the animation complete while cutting previous animation(s) short
       if (
         abortControllerRef.current === null &&
         !visitedNodesInOrder[visitedNodesInOrder.length - 1].isFinish
       ) {
         alert("1) Hit the Wall! Cannot Reach the End Destination!");
-      } 
+      }
 
       //TODO: I DONT THINK I NEED THIS.....
       //we let the animation finish completely without cutting previous animation(s) short
@@ -632,9 +632,8 @@ export default function PathFindingAlgorithm() {
       ) {
         alert("2) Hit the Wall! Cannot Reach the End Destination!");
       }
-      
-      dijkstraNotComplete = true;
 
+      dijkstraNotComplete = true;
     }
 
     /*
@@ -853,7 +852,7 @@ const createNode = (col, row) => {
 const getInitialGrid = () => {
   const grid = [];
 
-  //you can also do initialGrid = Array(selectedGridRowValue).fill(Array(MAX_TOTAL_COL).fill('')), to do the same thing
+  //you can also do initialGrid = Array(selectedGridRowValue).fill(Array(selectedGridColValue).fill('')), to do the same thing
   for (let row = 0; row < selectedGridRowValue; row++) {
     const currentRow = [];
     for (let col = 0; col < selectedGridColValue; col++) {
