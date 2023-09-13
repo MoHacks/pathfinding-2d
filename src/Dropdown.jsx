@@ -3,7 +3,10 @@ import { useEffect } from "react";
 import {
   MAX_TOTAL_ROW,
   MAX_TOTAL_COL,
+  START_NODE_COL,
+  START_NODE_ROW,
   END_NODE_COL,
+  END_NODE_ROW,
 } from "./PathFindingAlgorithm";
 
 const Dropdown = ({
@@ -216,10 +219,11 @@ const Dropdown = ({
 
   const handleStartColChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value === onSelectEndCol && onSelectStartRow === onSelectEndRow) {
+    if (value === END_NODE_COL && START_NODE_ROW === END_NODE_ROW) {
       alert(
         "A) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Column."
       );
+      return
     } else {
       setSelectedStartColValue(value);
     }
@@ -227,10 +231,12 @@ const Dropdown = ({
 
   const handleStartRowChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value === onSelectEndRow && onSelectStartCol === onSelectEndCol) {
+    // alert(`Value, onSelectEndRow, onSelectStartCol, onSelectEndCol: ${value}, ${END_NODE_ROW}, ${START_NODE_COL}, ${END_NODE_COL}`)
+    if (value === END_NODE_ROW && START_NODE_COL === END_NODE_COL) {
       alert(
         "B) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Row."
       );
+      return
     } else {
       setSelectedStartRowValue(value);
     }
@@ -238,10 +244,11 @@ const Dropdown = ({
 
   const handleEndColChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value === onSelectStartCol && onSelectEndRow === onSelectStartRow) {
+    if (value === START_NODE_COL && START_NODE_ROW === END_NODE_ROW) {
       alert(
         "C) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Column."
       );
+      return
     } else {
       setSelectedEndColValue(value);
     }
@@ -256,10 +263,11 @@ const Dropdown = ({
 
   const handleEndRowChange = (event) => {
     let value = parseInt(event.target.value);
-    if (value === onSelectStartRow && onSelectEndCol === onSelectStartCol) {
+    if (value === START_NODE_ROW && START_NODE_COL === END_NODE_COL) {
       alert(
         "D) Cannot select this Start Node Column Position since it overlaps with the End Node Column Position! Please Select a Different Row."
       );
+      return
     } else {
       setSelectedEndRowValue(value);
     }

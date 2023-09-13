@@ -1,9 +1,9 @@
 Current fixes to make:
-1. Make the program stop visualizing when the 
-2. perhaps remove START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW and replace it with the respective selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue
-3. 
+1. Make the Start position of Start/End Nodes not touch each other (DONE)
+2. The screenWidth in UseEffect is glitchy, fix ASAP!!!!! (DONE)
+3. Perhaps remove START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW and replace it with the respective selectedStartColValue, selectedStartRowValue, selectedEndColValue, selectedEndRowValue
 4. 
-
+5. 
 
 ------------------------------------
 Once completed the project, add the following features:
