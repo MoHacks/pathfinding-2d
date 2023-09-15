@@ -10,8 +10,8 @@ let selectedStartRowValue = 7;
 let selectedEndColValue = 7;
 let selectedEndRowValue = 3;
 
-const MAX_TOTAL_COL = 50
-const MAX_TOTAL_ROW = 50
+let MAX_TOTAL_COL = 50
+let MAX_TOTAL_ROW = 50
 let selectedGridColValue = MAX_TOTAL_COL;
 let selectedGridRowValue = MAX_TOTAL_ROW;
 
@@ -75,8 +75,7 @@ export default function PathFindingAlgorithm() {
         "1300 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      selectedGridColValue = 50;
-      selectedGridColValue = selectedGridColValue;
+      MAX_TOTAL_COL = selectedGridColValue = 50;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 1100) {
@@ -84,8 +83,7 @@ export default function PathFindingAlgorithm() {
         "1100 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      selectedGridColValue = 40;
-      selectedGridColValue = selectedGridColValue;
+      MAX_TOTAL_COL = selectedGridColValue = 40;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 900) {
@@ -93,8 +91,7 @@ export default function PathFindingAlgorithm() {
         "900 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      selectedGridColValue = 30;
-      selectedGridColValue = selectedGridColValue;
+      MAX_TOTAL_COL = selectedGridColValue = 30;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 700) {
@@ -102,8 +99,7 @@ export default function PathFindingAlgorithm() {
         "700 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      selectedGridColValue = 20;
-      selectedGridColValue = selectedGridColValue;
+      MAX_TOTAL_COL = selectedGridColValue = 20;
       const grid = getInitialGrid();
       setGrid(grid);
     } else if (screenWidth >= 500) {
@@ -111,8 +107,7 @@ export default function PathFindingAlgorithm() {
         "500 screenWidthhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh: ",
         screenWidth
       );
-      selectedGridColValue = 12;
-      selectedGridColValue = selectedGridColValue;
+      MAX_TOTAL_COL = selectedGridColValue = 12;
       const grid = getInitialGrid();
       setGrid(grid);
     }
@@ -613,7 +608,7 @@ export default function PathFindingAlgorithm() {
     //NOTE: previousCountRef.current will always store the most updated iteration vaue,
     //NOTE: meanwhile the count will need to eventually catchup to previousCountRef
     //NOTE: THIS IS HOW YOU COMPARE CURRENT COUNT STATES WITH PREVIOUS COUNT STATES!
-    if (previousCountRef.current == count) {
+    if (previousCountRef.current === count) {
       //we let the animation complete while cutting previous animation(s) short
       if (
         abortControllerRef.current === null &&

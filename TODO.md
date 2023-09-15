@@ -9,9 +9,10 @@ Current fixes to make:
 ---
 
 Once completed the project, add the following features:
-1. Allow for multiple squares to be the end destination and the algorithm should choose the destination square that is closest to the start
-2. Also finish DFS (using Stack Data Structure), Weighted Dijkstra, and A\* pathfinding algorithms
-3. If time permits:
+1. Allow a slider for different animation speeds
+2. Allow for multiple squares to be the end destination and the algorithm should choose the destination square that is closest to the start
+3. Also finish DFS (using Stack Data Structure), Weighted Dijkstra, and A\* pathfinding algorithms
+4. If time permits:
    - Refactor CSS to use TailwindCSS instead
    - refactor using Hooks
    - refactor everything into Typescript, but push the Javascript Version onto a branch in Gihub first!
@@ -19,7 +20,7 @@ Once completed the project, add the following features:
 TODO: Lessons Learned
 
 1. Within the return() statement of PathfindingAlgorithm.jsx, you ONLY WANT to pass in the respective "onSelect" value, for instance, when you want to render the **End Node Column** value, you pass the `onSelectEndCol` value in the DropDown Component as a prop. This prop gets rendered as a DropDown FOR THAT RESPECTIVE NODE ATTRIBUTE (i.e. either Start/End Node Position)
-2. **DO NOT PASS IN** the `onSelectStartCol, onSelectStartRow, onSelectEndRow` attributes for the **End Node Column**. Since passing in those values will **OVERRIDE** the previous `onSelectStart, onSelectStartRow, onSelectEndRow` values, which you dont want since it creates **unnessary re-rendering** and will trigger the `useEffect()` function from the `Dropdown.jsx` since its listening for changes in the `onSelect` variables. But we only want to update the respective `onSelect` variable \_\_FOR ITS SPECIFIC `dropDownType` (in the `renderDropdownDiv()` function).
+2. **DO NOT PASS IN** the `onSelectStartCol, onSelectStartRow, onSelectEndRow` attributes for the **End Node Column**. Since passing in those values will **OVERRIDE** the previous `onSelectStart, onSelectStartRow, onSelectEndRow` values, which you dont want since it creates **unnessary re-rendering** and will trigger the `useEffect()` function from the `Dropdown.jsx` since its listening for changes for all the `onSelect` variables. But we only want to update the respective `onSelect` variable \_\_FOR ITS SPECIFIC `dropDownType` (in the `renderDropdownDiv()` function).
 
 ```javascript
 <Dropdown
