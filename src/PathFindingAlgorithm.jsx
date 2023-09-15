@@ -275,7 +275,6 @@ export default function PathFindingAlgorithm() {
   const visualizeDijkstra = async () => {
     //if the previous animation is running, just return it early (i.e. cancel the previous call)
     // if(isAnimatingRef.current){
-    const newAbortController = new AbortController();
     setCount(count + 1);
     if (isAnimating) {
       console.log("counter isAnimating is already set to true...");
@@ -283,19 +282,6 @@ export default function PathFindingAlgorithm() {
       // cancelAnimation = true;
 
       //if animation is already in progress, cancel it
-      if (abortControllerRef.current) {
-        console.log(
-          "counter abort abortControllerRef, SHOULD CANCEL PREVIOUS ANIMATION: ",
-          abortControllerRef
-        );
-        abortControllerRef.current.abort();
-        alert("Boo ya");
-        console.log(
-          "counter now the abort signal value is: ",
-          abortControllerRef.current.signal
-        );
-      }
-
       // return;
     }
 
