@@ -323,7 +323,7 @@ export default function PathFindingAlgorithm() {
       );
       return;
     }
-    if (selectedStartRowValue >= selectedGridRowValue) {
+    if (selectedEndRowValue >= selectedGridRowValue) {
       alert(
         "Finish Node Row Value is greater than the total number of Rows in the Grid!"
       );
