@@ -1,10 +1,6 @@
 //TODO: Rename to Breadth-First Search
 export function dijkstra(grid, startNode, endNode){
-    // if(!start || !target || start === target){
-    //     return false;
-    // }
 
-    //TODO: Change this to a min-heap so that its more efficient
     const visitedNodesInOrder = [];
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
@@ -30,10 +26,6 @@ export function dijkstra(grid, startNode, endNode){
         sortNodesByDistance(unvisitedNodes);
         
         //creates a SHALLOW COPY of the unvisitedNodes object
-        console.log("unvisitedNodes.slice(0,10): ", unvisitedNodes.slice(0, 10));
-        // for(let i = 0; i < 10; i++){
-            // console.log("ah: ", unvisitedNodes[i].isVisited);
-        // }
         
         // pop first element from the array 
         const closestNode = unvisitedNodes.shift();
@@ -84,10 +76,10 @@ function getAllNodes(grid) {
 function sortNodesByDistance(unvisitedNodes){
     console.log("within sortNodesbyDistance (this is the univisitedNodes variable BEFORE sorting): ", [...unvisitedNodes]);
     unvisitedNodes.sort((nodeA, nodeB) => {
-        if (nodeA.distance === Infinity) return 1; // Move Infinity values to the end, since returning positive number
-                                                // for nodeA means nodeA > nodeB, therefore we swap nodeA and nodeB
-        if (nodeB.distance === Infinity) return -1; // Move Infinity values to the end, since returning negative number
-                                                //for nodeB means nodeA < nodeB, therefore we swap nodeA and nodeB
+        if (nodeA.distance === Infinity) return 1; // Move nodeA to the end since its Infinity, since returning positive number
+                                                // for nodeA means nodeA > nodeB, therefore we nodeA comes after nodeB (ascending order)
+        if (nodeB.distance === Infinity) return -1; // Move nodeB to the end since its Infinity, since returning negative number
+                                                //for nodeB means nodeA < nodeB, therefore we nodeA comes before nodeB (ascending order)
                                                 
         
         return nodeA.distance - nodeB.distance;
@@ -108,11 +100,11 @@ function getUnvisitedNeighbors(node, grid){
     const neighbors = [];
     const {col, row} = node;
 
-    // If the row number is being than zero, that means we can get the neighbor ABOVE the current node
+    // If the row number is greater than zero, that means we can get the neighbor ABOVE the current node
     if (row > 0){
         neighbors.push(grid[row - 1][col]);
     }
-    // If the row number is smaller than grid length - 1, that means we can get the neighbor BELOW the current node
+    // If the row number is smaller than grid.length - 1, that means we can get the neighbor BELOW the current node
     if(row < grid.length - 1){
         neighbors.push(grid[row + 1][col]);
     }
@@ -120,7 +112,7 @@ function getUnvisitedNeighbors(node, grid){
     if(col > 0){
         neighbors.push(grid[row][col - 1]);
     }
-    // If the col number is less than grid length - 1, that means we can get the neighbor to the RIGHT of the current node
+    // If the col number is less than grid[0].length - 1, that means we can get the neighbor to the RIGHT of the current node
     if(col < grid[0].length - 1){
         neighbors.push(grid[row][col + 1])
     }

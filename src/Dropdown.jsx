@@ -40,14 +40,14 @@ const Dropdown = ({
   useEffect(() => {
     // This code will run whenever selectedValue changes
     // You can perform any side effects or updates here
-    console.log("In useEffect(), onSelectStartCol: ", onSelectStartCol);
-    console.log("In useEffect(), onSelectStartRow: ", onSelectStartRow);
-    console.log("In useEffect(), onSelectEndCol: ", onSelectEndCol);
-    console.log("In useEffect(), onSelectEndRow: ", onSelectEndRow);
+    // console.log("In useEffect(), onSelectStartCol: ", onSelectStartCol);
+    // console.log("In useEffect(), onSelectStartRow: ", onSelectStartRow);
+    // console.log("In useEffect(), onSelectEndCol: ", onSelectEndCol);
+    // console.log("In useEffect(), onSelectEndRow: ", onSelectEndRow);
 
-    console.log(
-      "---------------------------------------------------------------------------"
-    );
+    // console.log(
+    //   "---------------------------------------------------------------------------"
+    // );
 
     console.log(
       "In useEffect(), selectedStartColValue: ",
@@ -62,7 +62,7 @@ const Dropdown = ({
 
     if (dropDownType === "start-col-dropdown") {
       console.log(
-        "HANDLESTARTCOLCHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: ",
+        "HANDLESTARTCOLCHANGE: ",
         onSelectStartCol,
         selectedStartColValue,
         selectedEndColValue,
@@ -78,7 +78,7 @@ const Dropdown = ({
       );
     } else if (dropDownType === "start-row-dropdown") {
       console.log(
-        "HANDLESTARTROWCHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: ",
+        "HANDLESTARTROWCHANGE: ",
         onSelectStartRow,
         selectedStartRowValue,
         selectedEndRowValue,
@@ -94,7 +94,7 @@ const Dropdown = ({
       );
     } else if (dropDownType === "end-col-dropdown") {
       console.log(
-        "HANDLEENDCOLCHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: ",
+        "HANDLEENDCOLCHANGE: ",
         onSelectEndCol,
         selectedEndColValue,
         selectedStartColValue,
@@ -122,24 +122,24 @@ const Dropdown = ({
         selectedEndColValue
       );
       console.log(
-        "onSelectEndCol AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectEndCol AFTER renderDrowndownDiv was finished: ",
         onSelectEndCol
       );
       console.log(
-        "onSelectStartCol AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectStartCol AFTER renderDrowndownDiv was finished: ",
         onSelectStartCol
       );
       console.log(
-        "onSelectEndRow AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectEndRow AFTER renderDrowndownDiv was finished: ",
         onSelectEndRow
       );
       console.log(
-        "onSelectStartRow AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectStartRow AFTER renderDrowndownDiv was finished: ",
         onSelectStartRow
       );
     } else if (dropDownType === "end-row-dropdown") {
       console.log(
-        "HANDLEENDROWCHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE: ",
+        "HANDLENDROWCHANGE: ",
         onSelectEndRow,
         selectedEndRowValue,
         selectedStartRowValue,
@@ -158,19 +158,19 @@ const Dropdown = ({
         selectedEndColValue
       );
       console.log(
-        "onSelectEndCol AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectEndCol AFTER renderDrowndownDiv was finished: ",
         onSelectEndCol
       );
       console.log(
-        "onSelectStartCol AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectStartCol AFTER renderDrowndownDiv was finished: ",
         onSelectStartCol
       );
       console.log(
-        "onSelectEndRow AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectEndRow AFTER renderDrowndownDiv was finished: ",
         onSelectEndRow
       );
       console.log(
-        "onSelectStartRow AFTERRRR renderDrowndownDiv was finished: ",
+        "onSelectStartRow AFTER renderDrowndownDiv was finished: ",
         onSelectStartRow
       );
     } else if (dropDownType === "grid-col-dropdown") {
@@ -224,7 +224,6 @@ const Dropdown = ({
 
   const handleStartRowChange = (event) => {
     const value = parseInt(event.target.value);
-    // alert(`Value, onSelectEndRow, onSelectStartCol, onSelectEndCol: ${value}, ${selectedEndRowValue}, ${selectedStartColValue}, ${selectedEndColValue}`)
     if (
       value === selectedEndRowValue &&
       selectedStartColValue === selectedEndColValue
@@ -256,7 +255,7 @@ const Dropdown = ({
       "selectedEndColValue AFTER setSelectedEndColValue: ",
       selectedEndColValue
     );
-    console.log("VALUEEE: ", value);
+    console.log("VALUE: ", value);
     console.log("OnSeleCtT: ", onSelectEndCol);
   };
 
@@ -286,7 +285,7 @@ const Dropdown = ({
     const value = parseInt(event.target.value);
     setSelectedGridColValue(value);
     console.log(
-      "valueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ",
+      "value: ",
       value
     );
   };
