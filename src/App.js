@@ -1,5 +1,5 @@
 import './App.css';
-import PathFindingAlgorithm from './PathFindingAlgorithm';
+import PathFindingAlgorithm from './Components/PathFindingAlgorithm';
 
 
 function App() {

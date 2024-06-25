@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import Node from "./Node";
 import "./PathFindingAlgorithm.css";
-import { dijkstra, getNodesInShortestPathOrder } from "./dijkstra";
+import { dijkstra, getNodesInShortestPathOrder } from "../dijkstra";
 import StartRowDropdown from "./Dropdown";
-import useScreenWidth from "./ScreenWidthHook";
+import useScreenWidth from "../ScreenWidthHook";
 
 let selectedStartColValue = 5;
 let selectedStartRowValue = 7;
@@ -86,7 +86,7 @@ export default function PathFindingAlgorithm() {
       setGrid(grid);
     }
 
-    
+
     // Here, you can cancel any ongoing animation or cleanup resources if needed
     console.log("Within UseEffect(), Current Animation Counter Value: ");
     console.log("Within UseEffect, screenWidth: ", screenWidth);
@@ -292,7 +292,7 @@ export default function PathFindingAlgorithm() {
     } finally {
       // Clean up the AbortController
       console.log("finally: clean up abortControllerRef");
-      
+
       abortControllerRef.current = null;
 
     }
@@ -418,7 +418,7 @@ export default function PathFindingAlgorithm() {
     setIsAnimating(false);
 
     console.log("isAnimating: ", isAnimating);
-    
+
     //abortController.current ==> DID abort
     //!abortController.current ==> DID NOT abort
 
@@ -528,7 +528,7 @@ export default function PathFindingAlgorithm() {
             Grid Rows:
             <StartRowDropdown
               dropDownType="grid-row-dropdown"
-              
+
               initialGridRowSize={selectedGridRowValue}
               updateGridRowSize={handleSelectGridRowValue} //this will hold and set the value of the Grid Rows
             />

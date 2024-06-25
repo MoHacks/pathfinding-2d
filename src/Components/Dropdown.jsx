@@ -201,7 +201,7 @@ const Dropdown = ({
     selectedStartRowValue,
     selectedEndColValue,
     selectedEndRowValue,
-    selectedGridColValue, 
+    selectedGridColValue,
     selectedGridRowValue,
     // initialGridColSize, //NOTE: DO NOT ADD THIS, it resets the grid col to the INITIAL size
     // initialGridRowSize //NOTE: DO NOT ADD THIS, it resets the grid row to the INITIAL size
