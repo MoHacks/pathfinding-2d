@@ -26,6 +26,8 @@ export {
   MAX_TOTAL_ROW
 };
 
+
+
 // Easier to use Functional Component instead of Class Component
 export default function PathFindingAlgorithm() {
 
@@ -76,12 +78,12 @@ export default function PathFindingAlgorithm() {
       MAX_TOTAL_COL = selectedGridColValue = 20;
       const grid = getInitialGrid();
       setGrid(grid);
-    } else if (screenWidth >= 500) {
+    } else if (screenWidth >= 100) {
       console.log(
         "500 screenWidth: ",
         screenWidth
       );
-      MAX_TOTAL_COL = selectedGridColValue = 12;
+      MAX_TOTAL_COL = selectedGridColValue = 10;
       const grid = getInitialGrid();
       setGrid(grid);
     }
@@ -513,7 +515,7 @@ export default function PathFindingAlgorithm() {
 
           <label>
             {" "}
-            Grid Cols:
+            GridCols:
             <StartRowDropdown
               dropDownType="grid-col-dropdown"
               initialGridColSize={selectedGridColValue}
@@ -525,7 +527,7 @@ export default function PathFindingAlgorithm() {
           {console.log("selected Grid Row Size: ", selectedGridRowValue)}
           <label>
             {" "}
-            Grid Rows:
+            GridRows:
             <StartRowDropdown
               dropDownType="grid-row-dropdown"
 
@@ -543,7 +545,7 @@ export default function PathFindingAlgorithm() {
 
           <label>
             {" "}
-            Start Cols:
+            StartCols:
             <StartRowDropdown
               onSelectStartCol={selectedStartColValue}
               dropDownType="start-col-dropdown"
@@ -553,7 +555,7 @@ export default function PathFindingAlgorithm() {
 
           <label>
             {" "}
-            Start Rows:
+            StartRows:
             <StartRowDropdown
               onSelectStartRow={selectedStartRowValue}
               dropDownType="start-row-dropdown"
@@ -569,7 +571,7 @@ export default function PathFindingAlgorithm() {
           </h3>
           <label>
             {" "}
-            End Cols:
+            EndCols:
             <StartRowDropdown
               onSelectEndCol={selectedEndColValue}
               dropDownType="end-col-dropdown"
@@ -579,7 +581,7 @@ export default function PathFindingAlgorithm() {
           {/* {console.log("AFTER selectedEndColValue was changed: ", selectedEndColValue)} */}
           <label>
             {" "}
-            End Rows:
+            EndRows:
             <StartRowDropdown
               onSelectEndRow={selectedEndRowValue}
               dropDownType="end-row-dropdown"
